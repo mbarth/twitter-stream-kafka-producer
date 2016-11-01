@@ -3,7 +3,7 @@ html(class="no-js", lang="")
     block link
         -var selected = 'home'; //default
 
-    //- Only displaying link to admin page is user belongs to admins group
+    //- Only displaying link to admin page if user belongs to admins group
     -var menu = { 'Home': '/', 'Stats': '/stats', 'Profile': '/profile' };
     if isAdmin
         -var menu = { 'Home': '/', 'Stats': '/stats', 'Profile': '/profile', 'Admin': '/admin' };
