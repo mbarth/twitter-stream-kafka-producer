@@ -25,16 +25,18 @@ var kafka_acked_count = 0;
 function processTweet(data) {
     if (data.text === undefined)
         return;
+    total_messages_buffered++;
+    total_tweets_received_count++;
     var twitter_data = {
         'handle': data.user.screen_name,
         'text': data.text,
         'device': data.source,
-        'filter': Session_Variables.filter ? Session_Variables.filter : ''
+        'filter': Session_Variables.filter ? Session_Variables.filter : '',
+        'total_count': total_tweets_received_count,
+        'start_time' : reporting_interval_start_time
     };
     var message = JSON.stringify(twitter_data);
     consumed_messages_list.push(message);
-    total_messages_buffered++;
-    total_tweets_received_count++;
     // Send if we've hit our buffering limit. The number of buffered messages balances your tolerance for losing data
     // (if the process/host is killed/dies) against throughput (batching messages into fewer requests makes processing
     // more efficient).
