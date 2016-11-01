@@ -29,9 +29,9 @@ TWITTER_ACCESS_KEY=Get an access key: https://apps.twitter.com/
 TWITTER_ACCESS_SECRET=Get an access key secret: https://apps.twitter.com/
 ```
 
-With the application running using the `npm run start-[window|linux]` command you'll need to login and create a user. Once your user is created, login to the [stormpath](api.stormpath.com) console and create an `admins` group. Add yourself to this `admins` group. Now you will have access to the (admin page of the app)[http://localhost:3001/admin].
+With the application running using the `npm run start-[window|linux]` command you'll need to [login](http://localhost:3001/login) and create a user. Once your user is created, login to the [stormpath](api.stormpath.com) console and create an `admins` group. Add yourself to this `admins` group. Now you will have access to the [admin page](http://localhost:3001/admin).
 
-On the (admin page)[http://localhost:3001/admin], set the term you would like to filter tweets by. Then select the "Start Twitter Stream" button.
+On the [admin page](http://localhost:3001/admin), set the term you would like to filter tweets by. Then select the "Start Twitter Stream" button.
 
 Use the [stats page](http://localhost:3001/stats) to verify that tweet messages are being processed.
 
@@ -41,3 +41,4 @@ To view the messages in kafka run the `kafka-console-consumer[.sh or .bat]` comm
 kafka-console-consumer[.sh or .bat] --zookeeper localhost:2181 --topic twitter --from-beginning
 ```
 
+Now you are ready to create your Node microservices that consume kafka messages published to the `twitter` topic. 
