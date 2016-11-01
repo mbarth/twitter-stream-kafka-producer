@@ -1,0 +1,69 @@
+extends layout
+block link
+    -var selected = 'Admin';
+    -var status = (stream_status == 'start') ? 'Running' : 'Stopped';
+    -var title = "Admin"
+block head
+
+block content
+    div.page-header
+        h1 Admin
+
+    if errors
+        each error in errors
+            div.alert.alert-danger
+                span #{error.error}
+    if alert_message
+        div.alert.alert-success
+            span=alert_message
+
+    div.row
+        div.col-xs-12
+            label Stream Status: #{status}
+
+    form(action='/admin/start-stream', method='post', role='form')
+        div.form-group.row
+            div.col-xs-6.col-sm-3
+                button.login.btn.btn-primary.btn-success(type='submit') Start Twitter Stream
+
+    form(action='/admin/stop-stream', method='post', role='form')
+        div.form-group.row
+            div.col-xs-6.col-sm-3
+                button.login.btn.btn-primary.btn-danger(type='submit') Stop Twitter Stream
+
+    form(action='/admin/update-filter', method='post', role='form')
+
+        div.form-group.row
+            div.col-xs-6.col-sm-3
+                label Twitter Filter
+                input.form-control(
+                placeholder='Enter a term to filter on',
+                required=true,
+                name='filter',
+                type='text',
+                value=filter)
+        div.form-group.row
+            div.col-xs-12
+                div
+                    label Buffering Limit
+                div.btn-group(data-toggle="buttons")
+                    label.btn.btn-primary(class=limit == 10 ? 'active' : undefined)
+                        input(type='radio',name='limit',id='limit-10',value='10',checked=limit == 10)
+                        |10
+                    label.btn.btn-primary(class=limit==20?'active':undefined)
+                        input(type='radio',name='limit',id='limit-20',value='20',checked=limit==20)
+                        |20
+                    label.btn.btn-primary(class=limit==50?'active':undefined)
+                        input(type='radio',name='limit',id='limit-50',value='50',checked=limit==50)
+                        |50
+                    label.btn.btn-primary(class=limit == 75 ? 'active' : undefined)
+                        input(type='radio',name='limit',id='limit-75',value='75',checked=limit == 75)
+                        |75
+                    label.btn.btn-primary(class=limit==100?'active':undefined)
+                        input(type='radio',name='limit',id='limit-100',value='100',checked=limit==100)
+                        |100
+                    label.btn.btn-primary(class=limit == 200 ? 'active' : undefined)
+                        input(type='radio',name='limit',id='limit-200',value='200',checked=limit == 200)
+                        |200
+        div.form-group
+            button.btn.btn-primary(type='submit') Save Stream Settings

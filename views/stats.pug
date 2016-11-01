@@ -1,0 +1,78 @@
+extends layout
+block link
+    -var selected = 'Stats';
+    -var title = 'Stats';
+
+block head
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js')
+    script(src='/javascript/c3.min.js')
+    link(rel='stylesheet', href='/css/c3.min.css')
+
+block content
+    div.page-header
+        h1 Streaming Stats
+
+    div.hidden.alert(id='alert')
+        span(id='message-content')
+
+    div.span8
+        pre.pre-scrollable(id="stats") Streaming stats will appear here ...
+
+    div.span8
+        div.chart
+            div(id='gauge')
+
+    script(src='/socket.io/socket.io.js')
+    script.
+        var chart = c3.generate({
+            bindto: "#gauge",
+            data: {
+                columns: [['data', 100]],
+                type: 'gauge'
+            },
+            gauge: {
+                label: {
+                    format: function (value, ratio) {
+                        return value; //returning the value and not the ratio
+                    }
+                },
+                min: 0,
+                max: 100,
+                units: 'Tweets/Sec' //text for the label
+            },
+            color: {
+                pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+                threshold: {
+                    values: [20, 40, 70, 100]
+                }
+            },
+            size: {height: 180}
+        });
+        var socket = io.connect('http://localhost:#{port}');
+        socket.on('stats', function (data) {
+            var stats = 'Stream status: ' + data.stream_status;
+            stats += '\nFilter term: ' + (data.filter ? data.filter : '');
+            stats += '\nTotal tweets received: ' + data.total_tweets_received_count;
+            stats += '\nBuffering limit: ' + (data.message_buffer_size ? data.message_buffer_size : '');
+            stats += '\nBuffered messages: ' + data.total_messages_buffered;
+            stats += '\nKafka messages sent: ' + data.total_messages_sent_count;
+            stats += '\nKafka messages acknowledged: ' + data.kafka_acked_count;
+            stats += '\nTweets received rate: ' + data.perSecond + ' tweets/sec';
+            $('#stats').text(stats);
+            chart.load({
+                columns: [['data', data.perSecond]]
+            });
+        });
+        socket.on('action', function (data) {
+            if (data && data.message) {
+                switch (data.message) {
+                    case 'Stream was stopped':
+                        $('#alert').removeClass('hidden').removeClass('alert-success').addClass('alert-danger');
+                        break;
+                    case 'Stream was started':
+                        $('#alert').removeClass('hidden').removeClass('alert-danger').addClass('alert-success');
+                        break;
+                }
+                $('#message-content').text(data.message);
+            }
+        });

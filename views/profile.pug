@@ -1,0 +1,72 @@
+extends layout
+block link
+    -var selected = 'Profile';
+    -var title = "Profile";
+block head
+
+block content
+    div.page-header
+        h1 My Profile
+
+    if errors
+        each error in errors
+            div.alert.alert-danger
+                span #{error.error}
+    if saved
+        div.alert.alert-success
+            span Your profile has been saved
+    form.login-form.form-horizontal(method='post', role='form')
+        input(name='_csrf', type='hidden', value=csrfToken)
+
+        div.form-group
+            label.col-sm-4 First Name
+            div.col-sm-8
+                input.form-control(
+                placeholder='Your first name',
+                required=true,
+                name='givenName',
+                type='text',
+                value=givenName)
+        div.form-group
+            label.col-sm-4 Last Name
+            div.col-sm-8
+                input.form-control(placeholder='Your last name',
+                required=true,
+                name='surname',
+                type='text',
+                value=surname)
+        div.form-group
+            label.col-sm-4 Street address
+            div.col-sm-8
+                input.form-control(placeholder='e.g. 123 Sunny Ave',
+                required=true,
+                name='streetAddress',
+                type='text',
+                value=streetAddress)
+        div.form-group
+            label.col-sm-4 City
+            div.col-sm-8
+                input.form-control(placeholder='e.g. City',
+                required=true,
+                name='city',
+                type='text',
+                value=city)
+        div.form-group
+            label.col-sm-4 State
+            div.col-sm-8
+                input.form-control(placeholder='e.g. CA',
+                required=true,
+                name='state',
+                type='text',
+                value=state)
+        div.form-group
+            label.col-sm-4 ZIP
+            div.col-sm-8
+                input.form-control(placeholder='e.g. 94116',
+                required=true,
+                name='zip',
+                type='text',
+                value=zip)
+        div.form-group
+            div.col-sm-offset-4.col-sm-8
+                button.login.btn.btn-primary(type='submit') Save

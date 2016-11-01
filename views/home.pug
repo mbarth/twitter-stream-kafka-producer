@@ -1,0 +1,31 @@
+extends layout
+block link
+    -var selected = 'Home';
+    -var title = 'Home';
+
+block content
+    div.jumbotron
+
+        h1 Stream Listener
+
+        h3 (Testing the Kafka Messaging System)
+
+        if errors
+            each error in errors
+                div.alert.alert-danger
+                    span #{error.error}
+
+        if user
+            p Welcome, #{user.fullName}
+            p
+                a.small(href="profile") Edit my profile
+            form(action='/logout', method='POST')
+                button.btn.btn-default(type="submit") Logout
+        else
+            p Login to view stream statistics and change the twitter filter
+            p
+                a.btn.btn-primary(href="/login") Login now
+            p
+                span.small Don't have an account?
+                span &nbsp;
+                a.small(href="/register") Register now

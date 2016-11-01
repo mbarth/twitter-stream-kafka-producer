@@ -1,0 +1,28 @@
+{
+  "name": "twitter-stream-kafka-producer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "load_env.bat & nodemon server.js -e js,pug"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "csurf": "^1.9.0",
+    "debug": "^2.2.0",
+    "express": "^4.14.0",
+    "express-stormpath": "^3.1.5",
+    "forms": "^1.2.0",
+    "kafka-node": "^1.0.3",
+    "morgan": "^1.7.0",
+    "node-tweet-stream": "^2.0.1",
+    "nodemon": "^1.11.0",
+    "pug": "^2.0.0-beta6",
+    "socket.io": "^1.5.1",
+    "xtend": "^4.0.1"
+  }
+}
