@@ -1,14 +1,15 @@
 {
   "name": "twitter-stream-kafka-producer",
   "version": "1.0.0",
-  "description": "",
+  "description": "Sample app making use of kafka-node libraries to publish twitter streams to a kafka server.",
+  "author": "Marcelo Barth <marcelo.barth@gmail.com>",
+  "license": "ISC",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "load_env.bat & nodemon server.js -e js,pug"
+    "start-windows": "load_env.bat & nodemon server.js -e js,pug",
+    "start-linux": "load_env.sh & nodemon server.js -e js,pug"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
