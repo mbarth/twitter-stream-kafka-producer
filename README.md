@@ -9,7 +9,7 @@ Getting Started
 Install the required libraries via npm:
 
     npm install
-    npm run start-windows [start-linux] // depending on your environment
+    npm run start-[windows or linux] // depending on your environment
 
 You will need to have a Kafka server running. The [Kakfa Quickstart](http://kafka.apache.org/quickstart)
 documentation explains how to do this step-by-step.
@@ -29,7 +29,7 @@ TWITTER_ACCESS_KEY=Get an access key: https://apps.twitter.com/
 TWITTER_ACCESS_SECRET=Get an access key secret: https://apps.twitter.com/
 ```
 
-With the application running using the `npm run start-[window|linux]` command you'll need to [login](http://localhost:3001/login) and create a user. Once your user is created, login to the [stormpath](api.stormpath.com) console and create an `admins` group. Add yourself to this `admins` group. Now you will have access to the [admin page](http://localhost:3001/admin).
+With the application running using the `npm run start-[windows|linux]` command you'll need to [login](http://localhost:3001/login) and create a user. Once your user is created, login to the [stormpath](api.stormpath.com) console and create an `admins` group. Add yourself to this `admins` group. Now you will have access to the [admin page](http://localhost:3001/admin).
 
 On the [admin page](http://localhost:3001/admin), set the term you would like to filter tweets by. Then select the "Start Twitter Stream" button.
 
@@ -38,7 +38,7 @@ Use the [stats page](http://localhost:3001/stats) to verify that tweet messages 
 To view the messages in kafka run the `kafka-console-consumer[.sh or .bat]` command:
 
 ```
-kafka-console-consumer[.sh or .bat] --zookeeper localhost:2181 --topic twitter --from-beginning
+./kafka-console-consumer[.sh or .bat] --zookeeper localhost:2181 --topic twitter --from-beginning
 ```
 
 Now you are ready to create your Node microservices that consume kafka messages published to the `twitter` topic. 
