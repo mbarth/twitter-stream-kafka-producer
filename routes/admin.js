@@ -18,7 +18,7 @@ var topicName = process.env.KAFKA_TOPIC_NAME;
 var consumed_messages_list = [];
 var total_tweets_received_count = 0;
 var total_messages_sent_count = 0;
-var reporting_interval_start_time = Date.now();
+var reporting_interval_start_time = 0;
 var total_messages_buffered = 0;
 var kafka_acked_count = 0;
 
@@ -57,21 +57,34 @@ function reportStatsToSocketIOClients() {
     var now = Date.now();
     var connections = getSocketIOClientConnections();
     if (connections.length > 0) {
-        var perSecond = Math.round(total_messages_buffered / ((now - reporting_interval_start_time) / socket_interval_rate));
+        var perSecond = Math.round(total_tweets_received_count / ((now - reporting_interval_start_time)/1000));
+        var status = Session_Variables.stream_status === 'start' ? 'Running' : 'Stopped';
+        var total_time = (Session_Variables.stream_status === 'start' ? msToTime(now - reporting_interval_start_time) : '00:00:00.0');
         for (var i=0; i<connections.length; i++) {
             connections[i].emit('stats', {
-                stream_status: Session_Variables.stream_status == 'start' ? 'Running' : 'Stopped' ,
-                filter: Session_Variables.filter,
+                stream_status: status,
+                filter: (Session_Variables.filter ? Session_Variables.filter : ''),
                 total_tweets_received_count: total_tweets_received_count,
                 total_messages_sent_count: total_messages_sent_count,
-                message_buffer_size: Session_Variables.limit,
+                message_buffer_size: (Session_Variables.limit ? Session_Variables.limit : 0),
                 total_messages_buffered: total_messages_buffered,
-                perSecond: perSecond,
+                perSecond: (Session_Variables.stream_status === 'start' ? perSecond : 0),
+                total_time: total_time,
                 kafka_acked_count: kafka_acked_count
             });
         }
     }
-    reporting_interval_start_time = now;
+}
+
+function msToTime(duration) {
+    var milliseconds = parseInt((duration%1000)/100)
+        , seconds = parseInt((duration/1000)%60)
+        , minutes = parseInt((duration/(1000*60))%60)
+        , hours = parseInt((duration/(1000*60*60))%24);
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+    return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
 }
 
 function handleProduceResponse(batch_messages_count, err, res) {
@@ -112,6 +125,7 @@ function startTwitterStream() {
         }
     }
     // reset stats counters
+    reporting_interval_start_time = Date.now();
     total_tweets_received_count = 0;
     total_messages_sent_count = 0;
     kafka_acked_count = 0;
@@ -243,7 +257,7 @@ module.exports = function admin(io, producer){
             });
         } else {
             if (!Session_Variables.filter ||
-                Session_Variables.filter == '') {
+                Session_Variables.filter === '') {
                 renderForm(req,res,{
                     errors: [{
                         error: 'Please enter a filter term'
