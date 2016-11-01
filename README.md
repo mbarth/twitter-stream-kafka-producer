@@ -13,3 +13,31 @@ Install the required libraries via npm:
 
 You will need to have a Kafka server running. The [Kakfa Quickstart](http://kafka.apache.org/quickstart)
 documentation explains how to do this step-by-step.
+
+This project makes use of [stormpath](https://stormpath.com/) for user management. Follow their [setup](https://docs.stormpath.com/nodejs/express/latest/setup.html) instructions to get your API keys to create your .env file. You'll also need to add your own [twitter](https://apps.twitter.com/) API key to the .env file.
+  
+Set up these following variables with your own keys in a `.env` file:
+
+```
+STORMPATH_CLIENT_APIKEY_ID=Learn how to get your APIKEY at https://docs.stormpath.com/nodejs/product-guide/latest/quickstart.html
+STORMPATH_CLIENT_APIKEY_SECRET=Learn how to get your APIKEY SECRET at https://docs.stormpath.com/nodejs/product-guide/latest/quickstart.html
+STORMPATH_APPLICATION_HREF=Learn how to Setup your application at https://docs.stormpath.com/nodejs/product-guide/latest/quickstart.html#retrieve-your-application
+
+TWITTER_CONSUMER_KEY=Get a consumer key: https://apps.twitter.com/
+TWITTER_CONSUMER_SECRET=Get a consumer key secret: https://apps.twitter.com/
+TWITTER_ACCESS_KEY=Get an access key: https://apps.twitter.com/
+TWITTER_ACCESS_SECRET=Get an access key secret: https://apps.twitter.com/
+```
+
+With the application running using the `npm run start-[window|linux]` command you'll need to login and create a user. Once your user is created, login to the [stormpath](api.stormpath.com) console and create an `admins` group. Add yourself to this `admins` group. Now you will have access to the (admin page of the app)[http://localhost:3001/admin].
+
+On the (admin page)[http://localhost:3001/admin], set the term you would like to filter tweets by. Then select the "Start Twitter Stream" button.
+
+Use the [stats page](http://localhost:3001/stats) to verify that tweet messages are being processed.
+
+To view the messages in kafka run the `kafka-console-consumer[.sh or .bat]` command:
+
+```
+kafka-console-consumer[.sh or .bat] --zookeeper localhost:2181 --topic twitter --from-beginning
+```
+
