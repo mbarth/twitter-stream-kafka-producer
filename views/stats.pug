@@ -50,15 +50,15 @@ block content
         });
         var socket = io.connect('http://localhost:#{port}');
         socket.on('stats', function (data) {
-            var stats = 'Stream status: ' + data.stream_status;
-            stats += '\nFilter term: ' + data.filter;
-            stats += '\nTotal tweets received: ' + data.total_tweets_received_count;
-            stats += '\nBuffering limit: ' + data.message_buffer_size;
-            stats += '\nBuffered messages: ' + data.total_messages_buffered;
-            stats += '\nKafka messages sent: ' + data.total_messages_sent_count;
-            stats += '\nKafka messages acknowledged: ' + data.kafka_acked_count;
-            stats += '\nRun time for term: ' + data.total_time;
-            stats += '\nTweets received rate: ' + data.perSecond + ' tweets/sec';
+            var stats = 'Stream status: ' + data.stream_status +
+                '\nFilter term: ' + data.filter +
+                '\nTotal tweets received: ' + data.total_tweets_received_count +
+                '\nBuffering limit: ' + data.message_buffer_size +
+                '\nBuffered messages: ' + data.total_messages_buffered +
+                '\nKafka messages sent: ' + data.total_messages_sent_count +
+                '\nKafka messages acknowledged: ' + data.kafka_acked_count +
+                '\nRun time for term: ' + data.total_time +
+                '\nTweets received rate: ' + data.perSecond + ' tweets/sec';
             $('#stats').text(stats);
             chart.load({
                 columns: [['data', data.perSecond]]

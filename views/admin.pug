@@ -36,7 +36,7 @@ block content
         div.form-group.row
             div.col-xs-6.col-sm-3
                 label Twitter Filter
-                input.form-control(
+                input.form-control(id='filter-term',
                 placeholder='Enter a term to filter on',
                 required=true,
                 name='filter',
@@ -67,3 +67,6 @@ block content
                         |200
         div.form-group
             button.btn.btn-primary(type='submit') Save Stream Settings
+
+        script.
+            $('#filter-term').focus();
