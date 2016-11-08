@@ -5,7 +5,9 @@ twitter-stream-kafka-producer is a sample node app that makes use of [kafka-node
 
 ## Getting Started
 
-This project makes use of [stormpath](https://stormpath.com/) for user management. Follow their [setup](https://docs.stormpath.com/nodejs/express/latest/setup.html) instructions to get your API keys to create your .env file. You'll also need to add your own [twitter](https://apps.twitter.com/) API key to the .env file.
+This project makes use of [Stormpath](https://stormpath.com/) for user management. Create a new Stormpath account: [https://api.stormpath.com/register](https://api.stormpath.com/register). 
+
+Follow their [setup](https://docs.stormpath.com/nodejs/express/latest/setup.html) instructions to get your API keys to create your .env file. You'll also need to add your own [twitter](https://apps.twitter.com/) API key to the .env file.
   
 Set up these following variables with your own keys in a `.env` file:
 
@@ -22,34 +24,41 @@ TWITTER_ACCESS_SECRET=Get an access key secret: https://apps.twitter.com/
 Install the required libraries via npm:
 
     npm install
-    npm run start-[windows or linux] // depending on your environment
 
 You will need to have a Kafka server running. The [Kakfa Quickstart](http://kafka.apache.org/quickstart)
 documentation explains how to do this step-by-step.
 
-With the application running using the `npm run start-[windows|linux]` command you'll need to [login](http://localhost:3001/login) and create a user. 
+With Kafka now running and your environment variables properly configured, start the node application:
 
-![Login](resources/login.png)
+```
+npm run start-[windows|linux] // depending on your environment
+```
 
-![Register](resources/register.png)
+Now [login](http://localhost:3001/login) and create a user. 
 
-![Create Account](resources/create-account.png)
+![Register](./resources/register.png =350x)
 
-Once your user is created, login to the [stormpath](https://api.stormpath.com/) console and create an `admins` group. Add yourself to this `admins` group.
+![Create Account](./resources/create-account.png =350x)
+
+With a user created, you can now login to view your profile.
+
+![Login](./resources/login.png =350x)
+
+Once your user is created, login to the [Stormpath](https://api.stormpath.com/) console and create an `admins` group. Add yourself to this `admins` group.
 
 Now you will have access to the [admin page](http://localhost:3001/admin).
 
-![Admin](resources/admin.png)
+![Admin](./resources/admin.png =350x)
 
 On the [admin page](http://localhost:3001/admin), set the term you would like to filter tweets by. 
 
-![Filter](resources/filter.png)
+![Filter](./resources/filter.png =350x)
 
 Then select the "Start Twitter Stream" button.
 
 Use the [stats page](http://localhost:3001/stats) to verify that tweet messages are being processed.
 
-![Stats](resources/stats.png)
+![Stats](./resources/stats.png =350x)
 
 To view the messages in kafka run the `kafka-console-consumer[.sh or .bat]` command:
 
@@ -57,4 +66,4 @@ To view the messages in kafka run the `kafka-console-consumer[.sh or .bat]` comm
 ./kafka-console-consumer[.sh or .bat] --zookeeper localhost:2181 --topic twitter --from-beginning
 ```
 
-Now you are ready to create your Node microservices that consume kafka messages published to the `twitter` topic. 
+Now you are ready to create your Node microservices that consume kafka messages published to the `twitter` topic.
