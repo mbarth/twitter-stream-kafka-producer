@@ -48,11 +48,11 @@ Once your user is created, login to the [Stormpath](https://api.stormpath.com/) 
 
 Now you will have access to the [admin page](http://localhost:3001/admin).
 
-<img src="./resources/admin.png" alt="Admin" width="350" />
+<img src="./resources/admin.png" alt="Admin" width="250" />
 
 On the [admin page](http://localhost:3001/admin), set the term you would like to filter tweets by. 
 
-<img src="./resources/filter.png" alt="Filter" width="350" />
+<img src="./resources/filter.png" alt="Filter" width="250" />
 
 Then select the "Start Twitter Stream" button.
 
