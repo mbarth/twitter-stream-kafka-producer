@@ -44,9 +44,9 @@ With a user created, you can now login to view your profile.
 
 <img src="./resources/login.png" alt="Login" width="350" />
 
-Once your user is created, login to the [Stormpath](https://api.stormpath.com/) console and create an `admins` group. Add yourself to this `admins` group.
+Once your user is created, login to the [Stormpath](https://api.stormpath.com/) console and create an `admins` group and then add yourself to this `admins` group.
 
-Now you will have access to the [admin page](http://localhost:3001/admin).
+Now you will have access to the [admin page](http://localhost:3001/admin) of the app.
 
 <img src="./resources/admin.png" alt="Admin" width="250" />
 
