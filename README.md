@@ -36,29 +36,29 @@ npm run start-[windows|linux] // depending on your environment
 
 Now [login](http://localhost:3001/login) and create a user. 
 
-![Register](./resources/register.png =350x)
+<img src="./resources/register.png" alt="Register" width="350" />
 
-![Create Account](./resources/create-account.png =350x)
+<img src="./resources/create-account.png" alt="Create Account" width="350" />
 
 With a user created, you can now login to view your profile.
 
-![Login](./resources/login.png =350x)
+<img src="./resources/login.png" alt="Login" width="350" />
 
 Once your user is created, login to the [Stormpath](https://api.stormpath.com/) console and create an `admins` group. Add yourself to this `admins` group.
 
 Now you will have access to the [admin page](http://localhost:3001/admin).
 
-![Admin](./resources/admin.png =350x)
+<img src="./resources/admin.png" alt="Admin" width="350" />
 
 On the [admin page](http://localhost:3001/admin), set the term you would like to filter tweets by. 
 
-![Filter](./resources/filter.png =350x)
+<img src="./resources/filter.png" alt="Filter" width="350" />
 
 Then select the "Start Twitter Stream" button.
 
 Use the [stats page](http://localhost:3001/stats) to verify that tweet messages are being processed.
 
-![Stats](./resources/stats.png =350x)
+<img src="./resources/stats.png" alt="Stats" width="350" />
 
 To view the messages in kafka run the `kafka-console-consumer[.sh or .bat]` command:
 
